@@ -1,3 +1,5 @@
+from ..dependencies import get_current_user
+from ..models import User
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
@@ -91,4 +93,14 @@ def login(
     return {
         "access_token": token,
         "token_type": "bearer"
+    }
+@router.get("/profile")
+def get_profile(
+    current_user: User = Depends(get_current_user)
+):
+
+    return {
+        "id": current_user.id,
+        "username": current_user.username,
+        "email": current_user.email
     }
