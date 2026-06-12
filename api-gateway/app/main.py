@@ -20,10 +20,6 @@ def root():
     }
 
 
-# -----------------
-# PRODUCTS
-# -----------------
-
 @app.get("/products")
 async def get_products():
 
@@ -36,9 +32,6 @@ async def get_products():
     return response.json()
 
 
-# -----------------
-# ORDERS
-# -----------------
 
 @app.get("/orders")
 async def get_orders():
@@ -52,9 +45,6 @@ async def get_orders():
     return response.json()
 
 
-# -----------------
-# REVIEWS
-# -----------------
 
 @app.get("/reviews")
 async def get_reviews():
@@ -67,10 +57,6 @@ async def get_reviews():
 
     return response.json()
 
-
-# -----------------
-# CHATBOT
-# -----------------
 
 @app.post("/chat")
 async def chat(payload: dict):
