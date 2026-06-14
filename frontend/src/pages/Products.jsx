@@ -5,24 +5,27 @@ export default function Products() {
 
   useEffect(() => {
     fetch("http://localhost:9000/products")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to load products");
+        return response.json();
+      })
       .then((data) => {
-        console.log(data);
-        setProducts(data);
+        setProducts(Array.isArray(data) ? data : []);
       })
       .catch((err) => console.error(err));
   }, []);
 
   return (
-    <div>
+    <div className="section">
       <h2>Products</h2>
 
-      
-
       {products.map((p) => (
-        <div key={p.id}>
+        <div key={p.id} className="product-card">
           <h3>{p.name}</h3>
+          <p>{p.description}</p>
           <p>₹{p.price}</p>
+          <p>Stock: {p.stock}</p>
+          <p>Seller: {p.seller_id}</p>
         </div>
       ))}
     </div>

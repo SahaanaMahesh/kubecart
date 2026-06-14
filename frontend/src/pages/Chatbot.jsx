@@ -5,16 +5,19 @@ export default function Chatbot() {
   const [response, setResponse] = useState("");
 
   const sendMessage = async () => {
-    const res = await fetch("http://localhost:9000/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message }),
-    });
-
-    const data = await res.json();
-    setResponse(data.response);
+    try {
+      const res = await fetch("http://localhost:9000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+      if (!res.ok) throw new Error("Chat failed");
+      const data = await res.json();
+      setResponse(data.response || "No response returned.");
+    } catch (err) {
+      setResponse("Unable to reach chatbot service right now.");
+      console.error(err);
+    }
   };
 
   return (

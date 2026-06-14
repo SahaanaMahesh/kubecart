@@ -1,5 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime
-from datetime import datetime
+from sqlalchemy import Column, Integer, String, Float
 from .database import Base
 
 
@@ -12,4 +11,3 @@ class Product(Base):
     price = Column(Float)
     stock = Column(Integer)
     seller_id = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)

@@ -5,8 +5,11 @@ export default function Orders() {
 
   useEffect(() => {
     fetch("http://localhost:9000/orders")
-      .then((res) => res.json())
-      .then((data) => setOrders(data))
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load orders");
+        return res.json();
+      })
+      .then((data) => setOrders(Array.isArray(data) ? data : []))
       .catch(console.error);
   }, []);
 

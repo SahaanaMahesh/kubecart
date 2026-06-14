@@ -5,8 +5,11 @@ export default function Reviews() {
 
   useEffect(() => {
     fetch("http://localhost:9000/reviews")
-      .then((res) => res.json())
-      .then((data) => setReviews(data))
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load reviews");
+        return res.json();
+      })
+      .then((data) => setReviews(Array.isArray(data) ? data : []))
       .catch(console.error);
   }, []);
 
