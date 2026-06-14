@@ -1,42 +1,34 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FastAPI(
-    title="KubeCart Chatbot Service"
-)
+app = FastAPI()
 
+products = [
+    {"id": 1, "name": "Laptop", "price": 50000},
+    {"id": 2, "name": "Headphones", "price": 2000},
+    {"id": 3, "name": "Mouse", "price": 500},
+]
 
 class ChatRequest(BaseModel):
     message: str
 
-
-@app.get("/")
-def root():
-    return {
-        "service": "chatbot-service"
-    }
-
-
 @app.post("/chat")
 def chat(request: ChatRequest):
+    message = request.message.lower()
 
-    msg = request.message.lower()
-
-    if "laptop" in msg:
+    if "laptop" in message:
         return {
-            "response": "I recommend MacBook Air."
+            "response": "I recommend the Laptop.",
+            "products": [products[0]]
         }
 
-    elif "phone" in msg:
+    if "audio" in message or "headphone" in message:
         return {
-            "response": "I recommend iPhone 15."
-        }
-
-    elif "electronics" in msg:
-        return {
-            "response": "Check our Electronics category."
+            "response": "You may like these headphones.",
+            "products": [products[1]]
         }
 
     return {
-        "response": f"You said: {request.message}"
+        "response": "Here are some products you may like.",
+        "products": products
     }

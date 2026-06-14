@@ -1,0 +1,6 @@
+KAFKA_PRODUCT_TOPIC = "PRODUCT_CREATED"
+
+PRODUCT_SERVICE_URL = "http://localhost:8001"
+ORDER_SERVICE_URL = "http://localhost:8003"
+REVIEW_SERVICE_URL = "http://localhost:8004"
+CHATBOT_SERVICE_URL = "http://localhost:8005"

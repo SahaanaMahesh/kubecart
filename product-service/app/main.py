@@ -12,6 +12,4 @@ app.include_router(router)
 
 @app.get("/")
 def root():
-    return {
-        "service": "product-service"
-    }
+    return {"service": "product-service"}
